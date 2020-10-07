@@ -11,7 +11,7 @@ public class DictionaryManagement extends Dictionary{
      * Inherited method
      */
     public String toString(){
-        return "No  " + "| English      " + "| VietNamese" ;
+        return "No  " + "| English        " + "| VietNamese" ;
     }
     /**
      * original dmMethod.
