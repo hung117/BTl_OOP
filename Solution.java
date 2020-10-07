@@ -7,6 +7,7 @@ public class Solution {
     public static void main(String[] args) {
 
         DictionaryCommandline myCommand = new DictionaryCommandline();
+        //myCommand.deleteWord();
         myCommand.insertFromCommandline();
         myCommand.showAllWord();
         myCommand.searchWord();
