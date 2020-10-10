@@ -16,6 +16,7 @@ public class DictionaryManagement extends Dictionary{
     public String toString(){
         return "No  " + "| English        " + "| VietNamese" ;
     }
+
     /**
      * original dmMethod.
      */
@@ -35,19 +36,18 @@ public class DictionaryManagement extends Dictionary{
     }
     public void DictionaryBasic(){
         insertFromCommandline();
-
     }
-    DictDataFile tempFile = new DictDataFile();
-
-    public DictDataFile getTempFile() {
-        return tempFile;
+    public void updateArray(){
+        target = new String[Arr_Dictionary.length];
+        explain = new String[Arr_Dictionary.length];
+        for (int i = 0; i < Arr_Dictionary.length; i++) {
+            target[i] = "";
+            target[i] = Arr_Dictionary[i].getWord_target();
+            explain[i] = "";
+            explain[i] = Arr_Dictionary[i].getWord_explain();
+        }
+        for (int i = 0; i < Arr_Dictionary.length; i++) {
+            System.out.println("target= " + target[i] + " explain= " + explain[i]);
+        }
     }
-
-
-    public void insertFromFile(){
-
-    }
-
-
-
 }
