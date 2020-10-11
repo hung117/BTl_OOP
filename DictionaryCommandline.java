@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class DictionaryCommandline extends DictionaryManagement {
     //int arr_size = super.i_wordNum;
     //int arr_size = super.i_wordNum;
@@ -20,24 +22,12 @@ public class DictionaryCommandline extends DictionaryManagement {
             Arr_Dictionary[i].setWord_explain(set);
 
         }
+        updateArray();
     }
 
     /**
      * original method.
      */
-    public void update() {
-        target = new String[Arr_Dictionary.length];
-        explain = new String[Arr_Dictionary.length];
-        for (int i = 0; i < Arr_Dictionary.length; i++) {
-            target[i] = "";
-            target[i] = Arr_Dictionary[i].getWord_target();
-            explain[i] = "";
-            explain[i] = Arr_Dictionary[i].getWord_explain();
-        }
-        for (int i = 0; i < Arr_Dictionary.length; i++) {
-            System.out.println("target= " + target[i] + " explain= " + explain[i]);
-        }
-    }
 
     public void showAllWord() {
         int arr_size = Arr_Dictionary.length;
@@ -50,29 +40,35 @@ public class DictionaryCommandline extends DictionaryManagement {
 
     public void searchWord() {
         int arr_size = super.Arr_Dictionary.length;
+        boolean exist = false;
         String target = " ";
         String explain = " ";
         System.out.print("Search Word: ");
         String search = sc.nextLine();
+        int searchSize = search.length();
+        System.out.println("searchSize= " + searchSize);
         for (int i = 0; i < arr_size; i++) {
             if (Arr_Dictionary[i].getWord_target().equals(search)) {
+                System.out.printf("%d %3s %-8s %s %-10s %n", i, "|", Arr_Dictionary[i].getWord_target(), "      | ", Arr_Dictionary[i].getWord_explain());
+                exist = true;
+                break;
+            } else if (Arr_Dictionary[i].getWord_target().substring(0, searchSize).equals(search)) {
                 target = Arr_Dictionary[i].getWord_target();
-                //System.out.println(Arr_Dictionary[i].getWord_explain());
                 explain = Arr_Dictionary[i].getWord_explain();
+                // out current iteration;
+                System.out.printf("%s %3s %-8s %s %s %-10s %s %n", "you meant :target", "|", target, "explain", "      | ", explain, "?");
+                exist = true;
+                continue;
+            }
+            if(exist == false){
+                System.out.println("Your word doesnt exist !");
                 break;
             }
         }
-        if (target != " ") {
-            System.out.printf("%s %3s %-8s %s %s %-10s %n", "target", "|", target, "explain", "      | ", explain);
 
-
-        } else {
-            System.out.println("Your Word Doesnt Exist!");
-
-        }
     }
 
-    public void addWord() {
+    public void addWord(){
 
         System.out.print("insert your new target word: ");
         newTargetWord = sc.next();
@@ -91,10 +87,11 @@ public class DictionaryCommandline extends DictionaryManagement {
         } else {
             System.out.println("St gone wrong");
         }
+        updateArray();
     }
 
 
-    public void deleteWord() {
+    public void deleteWord(){
         int arr_size = super.Arr_Dictionary.length;
         int idx = 0;
         Word[] newArr = new Word[arr_size - 1];
@@ -134,7 +131,7 @@ public class DictionaryCommandline extends DictionaryManagement {
         } else {
             System.out.println("St gone wrong");
         }
-
+        updateArray();
     }
 
 
