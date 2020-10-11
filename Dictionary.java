@@ -4,4 +4,5 @@ public class Dictionary{
     protected String[] explain = new String[0];
     protected String newTargetWord;
     protected String newExplainWord;
+
 }
