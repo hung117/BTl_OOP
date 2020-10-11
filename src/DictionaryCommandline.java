@@ -52,22 +52,39 @@ public class DictionaryCommandline extends DictionaryManagement {
                 System.out.printf("%d %3s %-8s %s %-10s %n", i, "|", Arr_Dictionary[i].getWord_target(), "      | ", Arr_Dictionary[i].getWord_explain());
                 exist = true;
                 break;
-            } else if (Arr_Dictionary[i].getWord_target().substring(0, searchSize).equals(search)) {
+            }else { suggestWord(search);
+            /*else if (Arr_Dictionary[i].getWord_target().substring(0, searchSize).equals(search)) {
                 target = Arr_Dictionary[i].getWord_target();
                 explain = Arr_Dictionary[i].getWord_explain();
                 // out current iteration;
                 System.out.printf("%s %3s %-8s %s %s %-10s %s %n", "you meant :target", "|", target, "explain", "      | ", explain, "?");
                 exist = true;
                 continue;
-            }
-            if(exist == false){
-                System.out.println("Your word doesnt exist !");
-                break;
+                */
+
             }
         }
 
     }
-
+    public void suggestWord(String incompleteWord){
+        int icWordSize = incompleteWord.length();
+        int dataSize = Arr_Dictionary.length;
+        int[] sgList = new int[dataSize]; // suggestions list by index
+        int sgCount = 0 ;
+        for(int i=0 ; i<dataSize ; i++){
+            if(Arr_Dictionary[i].getWord_target().substring(0,icWordSize).equals(incompleteWord)){
+                sgList[sgCount] = i;
+                sgCount++;
+            }
+        }
+        if(sgCount!=0) {
+            System.out.println("Your word doesn't exist, here are some suggestions:" );
+            for (int i = 0; i < sgCount; i++) {
+                System.out.println(Arr_Dictionary[sgList[i]].getWord_target() + "\n");
+            }
+        }
+        else System.out.println("Your word doesn't exist" + "\n");
+    }
     public void addWord(){
 
         System.out.print("insert your new target word: ");

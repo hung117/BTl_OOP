@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Solution {
     static final Scanner sc = new Scanner(System.in);
-
     public static void main(String[] args) throws IOException {
         DictDataFile curFile = new DictDataFile();
         DictionaryCommandline myCommand = new DictionaryCommandline();
@@ -20,14 +19,17 @@ public class Solution {
                     curFile.Create_Replace_StrFile(myCommand.explain,curFile.fileNameE);
                     break;
                 case 1:
+                    int length = curFile.GetLengthFromDataFile(curFile.fileNameT);
+                    myCommand.target = new String[length];
                     curFile.GetFromDataFile(myCommand.target,curFile.fileNameT);
+                    System.out.println("LENGTH = " + length);
+                    length = curFile.GetLengthFromDataFile(curFile.fileNameE);
+                    myCommand.explain = new String[length];
                     curFile.GetFromDataFile(myCommand.explain,curFile.fileNameE);
-                    System.out.println("target: " + myCommand.target.length);
-                    for(int i=0;i<myCommand.target.length;i++){
-                        System.out.println("target=" + myCommand.target[i]);
-                    }
-                    for(String a: myCommand.target){
-                        System.out.println("SOLUTION kiem tra:" + a);
+                    System.out.println("LENGTH = " + length);
+                    myCommand.Arr_Dictionary = new Word[length];
+                    for(Word w:myCommand.Arr_Dictionary){
+                        System.out.println("w= " + w);
                     }
                     myCommand.updateWord();
                     break;
