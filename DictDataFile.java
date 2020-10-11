@@ -64,8 +64,8 @@ public class DictDataFile extends Dictionary {
             e.printStackTrace();
         }
     }
-
     // replace cur data with data from file
+
     public void GetFromDataFile(String[] arr, String curFile) {
         try {
             File myFile = new File(curFile);
@@ -81,29 +81,44 @@ public class DictDataFile extends Dictionary {
             fr.close();
             System.out.println("SB.length=" + sb.length());
             String[] arrLine = sb.toString().split("\\n");
-            arr = new String[arrLine.length];
-            int i=0;
 
-            for(String s: arrLine){
+            int i = 0;
+            for (String s : arrLine) {
                 System.out.print("Content: " + s);
                 arr[i] = s;
-                System.out.println("    arr[" + i +"]=" + arr[i]);
+                System.out.println("    arr[" + i + "]=" + arr[i]);
                 i++;
             }
-            /*
-            for(String a: arr){
-                System.out.println("kiem tra:" + a);
-            }
-
-             */
-            //System.out.println(sb.toString());
-            //  arr = new String[sb.length()];
-            // System.arraycopy(line,0,arr,0,line.length());
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public int GetLengthFromDataFile(String curFile) {
+        int Datalength = 0;
+        try {
+            File myFile = new File(curFile);
+            FileReader fr = new FileReader(myFile);
+
+            BufferedReader bf = new BufferedReader(fr);
+            StringBuffer sb = new StringBuffer();
+            String line;
+            while ((line = bf.readLine()) != null) {
+                sb.append(line);
+                sb.append("\n");
+            }
+            fr.close();
+            String[] arrLine = sb.toString().split("\\n");
+            Datalength = arrLine.length;
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Datalength;
     }
 }

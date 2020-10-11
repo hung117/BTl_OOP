@@ -2,19 +2,22 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class DictionaryManagement extends Dictionary{
+public class DictionaryManagement extends Dictionary {
     Scanner sc = new Scanner(System.in);
-    protected int  i_wordNum;
+    protected int i_wordNum;
     private boolean quit = false;
+
     /**
      * Cons_Des.
      */
-    public DictionaryManagement(){}
+    public DictionaryManagement() {
+    }
+
     /**
      * Inherited method
      */
-    public String toString(){
-        return "No  " + "| English        " + "| VietNamese" ;
+    public String toString() {
+        return "No  " + "| English        " + "| VietNamese";
     }
 
     /**
@@ -22,22 +25,24 @@ public class DictionaryManagement extends Dictionary{
      */
     public void insertFromCommandline() {
         System.out.print("insert number of words: ");
-         i_wordNum = sc.nextInt();
-         //return i_wordNum;
+        i_wordNum = sc.nextInt();
+        //return i_wordNum;
     }
 
     public boolean isQuit() {
         return quit;
     }
 
-    public boolean quit(){
+    public boolean quit() {
         quit = true;
         return quit;
     }
-    public void DictionaryBasic(){
+
+    public void DictionaryBasic() {
         insertFromCommandline();
     }
-    public void updateArray(){
+
+    public void updateArray() {
         target = new String[Arr_Dictionary.length];
         explain = new String[Arr_Dictionary.length];
         for (int i = 0; i < Arr_Dictionary.length; i++) {
@@ -50,8 +55,10 @@ public class DictionaryManagement extends Dictionary{
             System.out.println("target= " + target[i] + " explain= " + explain[i]);
         }
     }
-    public void updateWord(){
-        for(int i=0;i<Arr_Dictionary.length;i++){
+
+    public void updateWord() {
+        for (int i = 0; i < Arr_Dictionary.length; i++) {
+            Arr_Dictionary[i] = new Word();
             Arr_Dictionary[i].setWord_target(target[i]);
             Arr_Dictionary[i].setWord_explain(explain[i]);
         }
