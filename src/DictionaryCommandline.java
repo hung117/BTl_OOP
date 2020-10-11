@@ -40,19 +40,24 @@ public class DictionaryCommandline extends DictionaryManagement {
 
     public void searchWord() {
         int arr_size = super.Arr_Dictionary.length;
-        boolean exist = false;
         String target = " ";
         String explain = " ";
+        int index = 0;
         System.out.print("Search Word: ");
         String search = sc.nextLine();
         int searchSize = search.length();
         System.out.println("searchSize= " + searchSize);
         for (int i = 0; i < arr_size; i++) {
             if (Arr_Dictionary[i].getWord_target().equals(search)) {
-                System.out.printf("%d %3s %-8s %s %-10s %n", i, "|", Arr_Dictionary[i].getWord_target(), "      | ", Arr_Dictionary[i].getWord_explain());
-                exist = true;
+                target = Arr_Dictionary[i].getWord_target();
+                explain = Arr_Dictionary[i].getWord_explain();
                 break;
-            }else { suggestWord(search);
+            }
+        }
+            if(target != " "){
+                System.out.printf("%s %3s %-8s %s %s %-10s %n", index, "|", target, "explain", "      | ", explain);
+            }
+            else { suggestWord(search);
             /*else if (Arr_Dictionary[i].getWord_target().substring(0, searchSize).equals(search)) {
                 target = Arr_Dictionary[i].getWord_target();
                 explain = Arr_Dictionary[i].getWord_explain();
@@ -64,8 +69,6 @@ public class DictionaryCommandline extends DictionaryManagement {
 
             }
         }
-
-    }
     public void suggestWord(String incompleteWord){
         int icWordSize = incompleteWord.length();
         int dataSize = Arr_Dictionary.length;
