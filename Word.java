@@ -1,6 +1,6 @@
 public class Word {
-    private String word_target;
-    private String word_explain;
+    public String word_target;
+    public String word_explain;
 
     /**
      * cons_des.
