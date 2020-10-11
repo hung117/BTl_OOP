@@ -1,6 +1,7 @@
 public class Word {
     public String word_target;
     public String word_explain;
+    public String pronounce;
 
     /**
      * cons_des.
@@ -24,4 +25,6 @@ public class Word {
         this.word_explain = word_explain;
     }
 
+    public String getPronounce() { return pronounce;}
+    public void setPronounce(String pronounce) { this.pronounce = pronounce; }
 }
