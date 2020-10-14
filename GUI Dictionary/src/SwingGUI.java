@@ -2,8 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javax.swing.border.Border;
 
@@ -19,6 +19,7 @@ public class SwingGUI extends DictionaryManagement {
     protected String strP = null;
     private DictGUIAction dicAction = new DictGUIAction();
     DictDataFile curFile = new DictDataFile();
+    private ArrayList<Word> data = new ArrayList<Word>();
 
 
     public void action() {
@@ -36,12 +37,14 @@ public class SwingGUI extends DictionaryManagement {
                     textAreaO.setText("please enter valid word");
                 }
                 else {
-                    textAreaO.setText("added successfully");
-                    try {
-                        dicAction.addWord(strT, strE, strP);
-                    } catch (IOException ioException) {
+
+                    //try {
+                    /*} catch (IOException ioException) {
                         ioException.printStackTrace();
-                    }
+                    }*/
+                    if(dicAction.addWord(strT,strE,strP,data)){
+                        textAreaO.setText("added successfully");
+                    }else textAreaO.setText("Duplicate word");
                 }
             }
         });
@@ -49,17 +52,19 @@ public class SwingGUI extends DictionaryManagement {
         showWordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    textAreaO.setText(dicAction.showWord(curFile));
+                /*try {
+                    textAreaO.setText(dicAction.showWord(data));
                 } catch (FileNotFoundException fileNotFoundException) {
                     fileNotFoundException.printStackTrace();
-                }
+                }*/
+                textAreaO.setText(dicAction.showWord(data));
             }
         });
         SearchWordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AtomicBoolean suggested = new AtomicBoolean();
+                /*AtomicBoolean suggested = new AtomicBoolean();
                 //textAreaS.setText("test");   // test xem suggest field co hoat dong ko
 
                 try {
@@ -71,17 +76,42 @@ public class SwingGUI extends DictionaryManagement {
                     else textAreaO.setText(searched);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
-                }
+                }*/
+                String searchedWord = dicAction.searchWord(textFieldT.getText(),data, suggested);
+                if(suggested.get()){
+                    textAreaS.setText(searchedWord);
+                }else textAreaO.setText(searchedWord);
             }
         });
         deleteWordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
+                /*try {
                     if(dicAction.deleteWord(textFieldT.getText())){
                         textAreaO.setText("Delete successfully");
                     }
                     else textAreaO.setText("Your word doesn't exist");
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }*/
+                textAreaO.setText(dicAction.deleteWord(data, textFieldT.getText()));
+            }
+        });
+        readButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    dicAction.readFile(data);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        });
+        writeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    dicAction.writeToFile(data);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
@@ -118,7 +148,12 @@ public class SwingGUI extends DictionaryManagement {
     private JTextArea textAreaS;
     private JLabel Suggestion;
     private JButton SearchWordButton;
-    private JTextField textFieldSearch;
+    private JButton readButton;
+    private JButton writeButton;
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
 
     // public SwingGUI(JFrame frame,JButton addWordButton)
 }

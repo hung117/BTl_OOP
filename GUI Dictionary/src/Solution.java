@@ -12,9 +12,6 @@ public class Solution {
 
         SwingGUI myGUI = new SwingGUI();
         myGUI.CreateGUI();
-        curFile.Create_Replace_StrFile(myCommand.target,curFile.fileNameT);
-        curFile.Create_Replace_StrFile(myCommand.explain,curFile.fileNameE);
-        curFile.Create_Replace_StrFile(myCommand.pronounce,curFile.fileNameP);
 
     }
 }
