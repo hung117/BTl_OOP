@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class DictDataFile extends Dictionary {
 
-    public String fileNameT = "C:\\Users\\Mr. BDHung\\Desktop\\OOP\\include\\Tdata.txt";
-    public String fileNameE = "C:\\Users\\Mr. BDHung\\Desktop\\OOP\\include\\Edata.txt";
+    public String fileNameT = "src\\Target.txt";
+    public String fileNameE = "src\\Explain.txt";
 
     public DictDataFile() {
     }
@@ -53,12 +53,12 @@ public class DictDataFile extends Dictionary {
             }
             pw.close();
             Scanner myReader = new Scanner(myFile);
-            System.out.println("Target data: ");
+            //System.out.println("Target data: ");
             while (myReader.hasNextLine()) {
                 String curWord = myReader.nextLine();
-                System.out.println(curWord);
+               // System.out.println(curWord);
             }
-            System.out.println("\n" + "End of file!");
+            //System.out.println("\n" + "End of file!");
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -79,14 +79,14 @@ public class DictDataFile extends Dictionary {
                 sb.append("\n");
             }
             fr.close();
-            System.out.println("SB.length=" + sb.length());
+            //System.out.println("SB.length=" + sb.length());
             String[] arrLine = sb.toString().split("\\n");
 
             int i = 0;
             for (String s : arrLine) {
-                System.out.print("Content: " + s);
+                //System.out.print("Content: " + s);
                 arr[i] = s;
-                System.out.println("    arr[" + i + "]=" + arr[i]);
+                //System.out.println("    arr[" + i + "]=" + arr[i]);
                 i++;
             }
         } catch (FileNotFoundException e) {

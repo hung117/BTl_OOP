@@ -52,7 +52,7 @@ public class DictionaryManagement extends Dictionary {
             explain[i] = Arr_Dictionary[i].getWord_explain();
         }
         for (int i = 0; i < Arr_Dictionary.length; i++) {
-            System.out.println("target= " + target[i] + " explain= " + explain[i]);
+           // System.out.println("target= " + target[i] + " explain= " + explain[i]);
         }
     }
 

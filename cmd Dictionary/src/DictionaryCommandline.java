@@ -46,7 +46,7 @@ public class DictionaryCommandline extends DictionaryManagement {
         System.out.print("Search Word: ");
         String search = sc.nextLine();
         int searchSize = search.length();
-        System.out.println("searchSize= " + searchSize);
+        //System.out.println("searchSize= " + searchSize);
         for (int i = 0; i < arr_size; i++) {
             if (Arr_Dictionary[i].getWord_target().equals(search)) {
                 target = Arr_Dictionary[i].getWord_target();
@@ -126,12 +126,12 @@ public class DictionaryCommandline extends DictionaryManagement {
         }
         // case: head, middle, last
         if (idx == 0) {
-            System.out.println("HEAD!   idx: " + idx);
+            //System.out.println("HEAD!   idx: " + idx);
 
             System.arraycopy(Arr_Dictionary, 1, newArr, 0, arr_size - 1);
             Arr_Dictionary = newArr;
         } else if (idx == arr_size - 1) {
-            System.out.println("LAST!   idx: " + idx);
+            //System.out.println("LAST!   idx: " + idx);
 
             System.arraycopy(Arr_Dictionary, 0, newArr, 0, arr_size - 1);
             Arr_Dictionary = newArr;
@@ -139,7 +139,7 @@ public class DictionaryCommandline extends DictionaryManagement {
         } else if (idx >= arr_size) {
             System.out.println("Invalid Input, There's nothing to delete");
         } else {
-            System.out.println("MID!    idx: " + idx);
+            //System.out.println("MID!    idx: " + idx);
             for (int i = idx; i < arr_size - 1; i++) {
                 Arr_Dictionary[i] = Arr_Dictionary[i + 1];
             }

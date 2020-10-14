@@ -22,14 +22,14 @@ public class Solution {
                     int length = curFile.GetLengthFromDataFile(curFile.fileNameT);
                     myCommand.target = new String[length];
                     curFile.GetFromDataFile(myCommand.target,curFile.fileNameT);
-                    System.out.println("LENGTH = " + length);
+                    //System.out.println("LENGTH = " + length);
                     length = curFile.GetLengthFromDataFile(curFile.fileNameE);
                     myCommand.explain = new String[length];
                     curFile.GetFromDataFile(myCommand.explain,curFile.fileNameE);
-                    System.out.println("LENGTH = " + length);
+                    //System.out.println("LENGTH = " + length);
                     myCommand.Arr_Dictionary = new Word[length];
                     for(Word w:myCommand.Arr_Dictionary){
-                        System.out.println("w= " + w);
+                       // System.out.println("w= " + w);
                     }
                     myCommand.updateWord();
                     break;
