@@ -5,29 +5,32 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class DictGUIAction extends DictionaryManagement {
     //@Override
 
-    public void addWord(String strT, String strE, String strP, DictDataFile curFile) throws IOException {
+    public void addWord(String strT, String strE, String strP) throws IOException {
+        File fileT = new File("src\\Tdata.txt");
+        File fileE = new File("src\\Edata.txt");
+        File fileP = new File("src\\Pdata.txt");
 
-        newTargetWord = strT;
-        System.out.println("your new target word: " + newTargetWord);
+        BufferedReader checkDup = new BufferedReader(new FileReader(fileT));
 
-        newExplainWord = strE;
-        System.out.println("your new explain word: " + newExplainWord);
+        FileWriter fwT = new FileWriter(fileT,true);
+        FileWriter fwE = new FileWriter(fileE,true);
+        FileWriter fwP = new FileWriter(fileP,true);
 
-        newPronounce = strP;
-        System.out.println("your new pronunciation: " + newPronounce);
-        // copy old arr + expand
-        Word[] newArr_Dictionary = new Word[Arr_Dictionary.length + 1];
-        System.arraycopy(Arr_Dictionary, 0, newArr_Dictionary, 0, Arr_Dictionary.length);
-        newArr_Dictionary[newArr_Dictionary.length - 1] = new Word(newTargetWord, newExplainWord, newPronounce);
-        // replace
-        Arr_Dictionary = newArr_Dictionary;
-        updateArray();
+        String lineT = checkDup.readLine();
+        while (lineT != null){
+            if(lineT.equals(strT)){
+                return;
+            }
+            lineT = checkDup.readLine();
+        }
+        fwT.write(strT+"\n");
+        fwE.write(strE+"\n");
+        fwP.write(strP+"\n");
 
-        curFile.Create_Replace_StrFile(target, curFile.fileNameT);
-        curFile.Create_Replace_StrFile(explain, curFile.fileNameE);
-        curFile.Create_Replace_StrFile(pronounce, curFile.fileNameP);
-
-
+        checkDup.close();
+        fwE.close();
+        fwP.close();
+        fwT.close();
     }
 
     public String showWord(DictDataFile curFile) throws FileNotFoundException {
@@ -52,47 +55,74 @@ public class DictGUIAction extends DictionaryManagement {
         return temptStr;
     }
 
-    public boolean deleteWord(String wordToDelete, boolean haveWord) throws IOException {
+    public boolean deleteWord(String wordToDelete) throws IOException {
 
-        File fileT = new File("src\\Tdata.txt"); File tempT = new File("src\\tempT.txt");
-        File fileE = new File("src\\Edata.txt"); File tempE = new File("src\\tempE.txt");
-        File fileP = new File("src\\Pdata.txt"); File tempP = new File("src\\tempP.txt");
+        File fileT = new File("src\\Tdata.txt");
+        File fileE = new File("src\\Edata.txt");
+        File fileP = new File("src\\Pdata.txt");
 
-        FileWriter outT = new FileWriter(tempT, true);
-        FileWriter outE = new FileWriter(tempE, true);
-        FileWriter outP = new FileWriter(tempP, true);
+        BufferedReader check = new BufferedReader(new FileReader(fileT));
 
-        BufferedReader inT = new BufferedReader(new FileReader(fileT));
-        BufferedReader inE = new BufferedReader(new FileReader(fileE));
-        BufferedReader inP = new BufferedReader(new FileReader(fileP));
+        String checkLine = check.readLine();
+        boolean checkWord = false;
 
-        String lineT = inT.readLine();
-        String lineE = inE.readLine();
-        String lineP = inP.readLine();
-        while (lineT != null) {
+        while (checkLine != null){
+            if(checkLine.equals(wordToDelete)) {
+                checkWord = true;
+            }
+            checkLine=check.readLine();
+        }
+        check.close();
 
-            if (!lineT.equals(wordToDelete)) {
-                outT.write(lineT + "\n");
-                if(lineE != null) outE.write(lineE + "\n");
-                if(lineP != null) outP.write(lineP + "\n");
-                haveWord = true;
+        if (!checkWord) {
+            return false;
+        }else {
+
+            BufferedReader inT = new BufferedReader(new FileReader(fileT));
+            BufferedReader inE = new BufferedReader(new FileReader(fileE));
+            BufferedReader inP = new BufferedReader(new FileReader(fileP));
+
+            String lineT = inT.readLine();
+            String lineE = inE.readLine();
+            String lineP = inP.readLine();
+
+            File tempT = new File("src\\tempT.txt");
+            File tempE = new File("src\\tempE.txt");
+            File tempP = new File("src\\tempP.txt");
+
+            FileWriter outT = new FileWriter(tempT, true);
+            FileWriter outE = new FileWriter(tempE, true);
+            FileWriter outP = new FileWriter(tempP, true);
+
+            while (lineT != null) {
+
+                if (!lineT.equals(wordToDelete)) {
+                    outT.write(lineT + "\n");
+                    if (lineE != null) outE.write(lineE + "\n");
+                    if (lineP != null) outP.write(lineP + "\n");
+                }
+
+                lineT = inT.readLine();
+                lineE = inE.readLine();
+                lineP = inP.readLine();
+            }
+            inT.close();
+            inE.close();
+            inP.close();
+
+            outT.close();
+            outE.close();
+            outP.close();
+
+            if(fileT.delete() && fileE.delete() &&fileP.delete()){
+                //System.out.println("deleted");
             }
 
-            lineT=inT.readLine();
-            lineE=inE.readLine();
-            lineP=inP.readLine();
+            if (tempT.renameTo(fileT) && tempE.renameTo(fileE) && tempP.renameTo(fileP)) {
+                //System.out.println("success");
+            }
         }
-        inT.close(); inE.close(); inP.close();
-
-        outT.close(); outE.close(); outP.close();
-
-        fileT.delete(); fileE.delete(); fileP.delete();
-
-        if(tempT.renameTo(fileT) && tempE.renameTo(fileE) && tempP.renameTo(fileP)){
-            System.out.println("success");
-        }
-        if(haveWord) return true;
-        else return false;
+        return true;
     }
     public String searchWord(String wordToSearch, AtomicBoolean suggested) throws IOException {
         if(wordToSearch.equals("")) return "Please enter word";

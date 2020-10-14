@@ -38,7 +38,7 @@ public class SwingGUI extends DictionaryManagement {
                 else {
                     textAreaO.setText("added successfully");
                     try {
-                        dicAction.addWord(strT, strE, strP, curFile);
+                        dicAction.addWord(strT, strE, strP);
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
@@ -78,7 +78,7 @@ public class SwingGUI extends DictionaryManagement {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if(dicAction.deleteWord(textFieldT.getText(),false)){
+                    if(dicAction.deleteWord(textFieldT.getText())){
                         textAreaO.setText("Delete successfully");
                     }
                     else textAreaO.setText("Your word doesn't exist");
